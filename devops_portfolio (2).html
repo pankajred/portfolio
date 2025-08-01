@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pankaj Bhagwani - DevOps Engineer Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --accent: #00d4ff;
+            --accent-hover: #00b8e6;
+            --accent-secondary: #ff6b35;
+            --border: #404040;
+            --glow: rgba(0, 212, 255, 0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0a0a0a, #1a1a1a, #0f0f23);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+        }
+
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(0, 212, 255, 0.05) 0%, transparent 50%);
+            animation: floatingOrbs 15s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes floatingOrbs {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(10px) rotate(240deg); }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) {
+            width: 4px;
+            height: 4px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            width: 6px;
+            height: 6px;
+            top: 60%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .particle:nth-child(3) {
+            width: 3px;
+            height: 3px;
+            top: 30%;
+            left: 70%;
+            animation-delay: 4s;
+        }
+
+        .particle:nth-child(4) {
+            width: 5px;
+            height: 5px;
+            top: 80%;
+            left: 80%;
+            animation-delay: 6s;
+        }
+
+        .particle:nth-child(5) {
+            width: 2px;
+            height: 2px;
+            top: 10%;
+            left: 90%;
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
+            25% { transform: translateY(-20px) translateX(10px); opacity: 0.6; }
+            50% { transform: translateY(-40px) translateX(-5px); opacity: 0.8; }
+            75% { transform: translateY(-20px) translateX(-10px); opacity: 0.6; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px var(--glow);
+            animation: pulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { text-shadow: 0 0 20px var(--glow); }
+            to { text-shadow: 0 0 30px var(--glow), 0 0 40px var(--glow); }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent), var(--accent-secondary));
+            border-radius: 25px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-links a:hover::before {
+            opacity: 0.2;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+            text-shadow: 0 4px 8px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            animation: heroGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroGlow {
+            from { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            to { transform: translate(-50%, -50%) scale(1.2); opacity: 0.6; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--accent), #ffffff, var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            text-shadow: 0 0 40px var(--glow);
+        }
+
+        @keyframes titleGlow {
+            from { filter: drop-shadow(0 0 20px var(--glow)); }
+            to { filter: drop-shadow(0 0 40px var(--glow)) drop-shadow(0 0 60px var(--glow)); }
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .hero-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.7s both;
+        }
+
+        .hero-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero-icon:nth-child(2) { animation-delay: 0.5s; }
+        .hero-icon:nth-child(3) { animation-delay: 1s; }
+        .hero-icon:nth-child(4) { animation-delay: 1.5s; }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(45deg, var(--accent), var(--accent-secondary));
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
+            animation: fadeInUp 1s ease 0.9s both;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            position: relative;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            text-align: center;
+            background: linear-gradient(45deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            margin-top: 2rem;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--bg-card), var(--bg-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10rem;
+            color: var(--accent);
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+            animation: rotateGlow 8s linear infinite;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, var(--accent), var(--accent-secondary));
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotateGlow 8s linear infinite reverse;
+        }
+
+        @keyframes rotateGlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-text::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+        }
+
+        .about-text h3 {
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--accent), var(--accent-secondary));
+            border-radius: 2px;
+            box-shadow: 0 0 20px var(--glow);
+        }
+
+        .experience-item {
+            position: relative;
+            margin-bottom: 4rem;
+            padding-left: 3rem;
+            animation: slideInLeft 0.6s ease forwards;
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .experience-item:nth-child(1) { animation-delay: 0.1s; }
+        .experience-item:nth-child(2) { animation-delay: 0.3s; }
+        .experience-item:nth-child(3) { animation-delay: 0.5s; }
+
+        @keyframes slideInLeft {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -2.2rem;
+            top: 1rem;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent), var(--accent-secondary));
+            box-shadow: 0 0 20px var(--glow);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .experience-header {
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .experience-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+        }
+
+        .experience-title {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .experience-company {
+            color: var(--text-primary);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .experience-duration {
+            color: var(--accent-secondary);
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .experience-description {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .experience-description ul {
+            padding-left: 2rem;
+        }
+
+        .experience-description li {
+            margin-bottom: 0.8rem;
+            color: var(--text-secondary);
+            position: relative;
+        }
+
+        .experience-description li::before {
+            content: '▶';
+            color: var(--accent);
+            position: absolute;
+            left: -1.5rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+        }
+
+        .skill-category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.1);
+        }
+
+        .skill-category h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .skill-category h3 i {
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(45deg, var(--bg-secondary), var(--bg-primary));
+            color: var(--text-primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .skill-tag:hover::before {
+            left: 100%;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(0, 212, 255, 0.15);
+        }
+
+        .project-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+            position: relative;
+        }
+
+        .project-header h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
+
+        .project-duration {
+            color: var(--accent-secondary);
+            font-size: 1rem;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content ul {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        .project-content li {
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+
+        .project-content li::before {
+            content: '✦';
+            color: var(--accent);
+            position: absolute;
+            left: -1.5rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .tech-tag {
+            background: linear-gradient(45deg, var(--accent), var(--accent-secondary));
+            color: var(--bg-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .tech-tag:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .blog-card {
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.1);
+        }
+
+        .blog-date {
+            color: var(--accent-secondary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .blog-title {
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            background: linear-gradient(45deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+            padding: 4rem;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+        }
+
+        .contact-content p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 1.5rem 2.5rem;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent), var(--accent-secondary));
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .contact-link:hover::before {
+            left: 0;
+        }
+
+        .contact-link:hover {
+            color: var(--bg-primary);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .contact-link i {
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.4rem;
+            }
+
+            .hero-icons {
+                gap: 1rem;
+            }
+
+            .hero-icon {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .about-image {
+                width: 250px;
+                height: 250px;
+                font-size: 6rem;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section {
+                padding-left: 1rem;
+                padding-right: 1rem;
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+            }
+
+            .experience-timeline {
+                padding-left: 2rem;
+            }
+
+            .experience-item {
+                padding-left: 2rem;
+            }
+
+            .contact-content {
+                padding: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Floating particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Pankaj Bhagwani</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Pankaj Bhagwani</h1>
+            <p class="subtitle">DevOps Engineer | Cloud Migration Expert | Infrastructure Automation</p>
+            <div class="hero-icons">
+                <div class="hero-icon"><i class="fas fa-cloud"></i></div>
+                <div class="hero-icon"><i class="fas fa-cogs"></i></div>
+                <div class="hero-icon"><i class="fab fa-docker"></i></div>
+                <div class="hero-icon"><i class="fas fa-server"></i></div>
+            </div>
+            <a href="#about" class="cta-button">Explore My Work</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section fade-in">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="about-image">
+                <i class="fas fa-user-cog"></i>
+            </div>
+            <div class="about-text">
+                <h3>DevOps Engineer & Cloud Migration Specialist</h3>
+                <p>I'm a passionate DevOps Engineer with extensive experience in cloud infrastructure, automation, and system administration. Currently working at Times Internet Limited (Cricbuzz), I specialize in deployment automation, containerization, and monitoring solutions.</p>
+                <br>
+                <p>My expertise includes migrating large-scale applications from AliCloud to GCP, setting up comprehensive monitoring architectures, and automating deployment processes using tools like Ansible, Terraform, and Docker. I have hands-on experience with various cloud platforms and databases including Redis, MySQL, Cassandra, MongoDB, and Elasticsearch.</p>
+                <br>
+                <p>I hold multiple certifications including HashiCorp Terraform Associate, Microsoft Azure Fundamentals, and Red Hat Certified Specialist in Ansible Automation. I'm passionate about infrastructure automation, cloud technologies, and creating efficient deployment pipelines.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section fade-in">
+        <h2>Professional Experience</h2>
+        <div class="experience-timeline">
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div class="experience-title">Linux and DevOps Engineer</div>
+                    <div class="experience-company">Times Internet Limited (Cricbuzz)</div>
+                    <div class="experience-duration">Oct 2018 – May 2021 | Bangalore, Karnataka, India</div>
+                </div>
+                <div class="experience-description">
+                    <ul>
+                        <li>Deployment of applications/servers using Ansible on Development and Staging Environment</li>
+                        <li>Assist developers with setting up their environments, and developing new Docker images, and POC</li>
+                        <li>Work collaboratively with the software engineering team to deploy and operate systems</li>
+                        <li>Troubleshoot and resolve issues in development, test and production environments</li>
+                        <li>Build and maintain tools for deployment, monitoring, and operations</li>
+                        <li>Automate Tasks for Windows, CentOS, Ubuntu and Mac OS</li>
+                        <li>Configuration/Setup with container deployment of monitoring Environment using Grafana, Prometheus, Node Exporter and AlertManager</li>
+                        <li>Monitor and control the performance and status of the network</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div class="experience-title">DevOps Intern - Big Data & Hadoop</div>
+                    <div class="experience-company">Coupling</div>
+                    <div class="experience-duration">2017 – 2018</div>
+                </div>
+                <div class="experience-description">
+                    <p>A Python web application project for configuring Hadoop With Map Reduce.</p>
+                    <ul>
+                        <li>Technology: Big Data - Hadoop, Docker, Ansible, RHEL 7, Python CGI</li>
+                        <li>Servers: Apache, Nginx, Map Reduce</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div class="experience-title">Cloud Computing Intern - Owncloud9</div>
+                    <div class="experience-company">Cloud Computing Project</div>
+                    <div class="experience-duration">2017</div>
+                </div>
+                <div class="experience-description">
+                    <p>A Python web application project involving all the learned technologies and methods to make a product suite comprising of SaaS, StaaS, CaaS, and PaaS.</p>
+                    <ul>
+                        <li>Technologies: Docker, DevOps, RHEL 7, Python Programming with CGI, HTML5, CSS, Nginx</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section fade-in">
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3><i class="fas fa-cloud"></i> Cloud Platforms</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">AWS</span>
+                    <span class="skill-tag">Google Cloud Platform</span>
+                    <span class="skill-tag">Alibaba Cloud</span>
+                    <span class="skill-tag">Microsoft Azure</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-shipping-fast"></i> CI/CD & Automation</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Ansible</span>
+                    <span class="skill-tag">Terraform</span>
+                    <span class="skill-tag">Terragrunt</span>
+                    <span class="skill-tag">Jenkins</span>
+                    <span class="skill-tag">GitHub Actions</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-cubes"></i> Containerization</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">Docker Compose</span>
+                    <span class="skill-tag">Container Orchestration</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-chart-line"></i> Monitoring & Logging</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Prometheus</span>
+                    <span class="skill-tag">Grafana</span>
+                    <span class="skill-tag">AlertManager</span>
+                    <span class="skill-tag">Node Exporter</span>
+                    <span class="skill-tag">Datadog</span>
+                    <span class="skill-tag">Consul</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-code"></i> Programming & Scripting</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Shell Scripting</span>
+                    <span class="skill-tag">Python CGI</span>
+                    <span class="skill-tag">Git</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-database"></i> Databases & Storage</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">MySQL</span>
+                    <span class="skill-tag">MongoDB</span>
+                    <span class="skill-tag">Redis</span>
+                    <span class="skill-tag">Cassandra</span>
+                    <span class="skill-tag">Elasticsearch</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-server"></i> Operating Systems</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">RHEL 7</span>
+                    <span class="skill-tag">CentOS</span>
+                    <span class="skill-tag">Ubuntu</span>
+                    <span class="skill-tag">Windows</span>
+                    <span class="skill-tag">Mac OS</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-certificate"></i> Certifications</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">HashiCorp Terraform Associate</span>
+                    <span class="skill-tag">Microsoft Azure Fundamentals</span>
+                    <span class="skill-tag">Red Hat Ansible Automation</span>
+                    <span class="skill-tag">Red Hat System Administrator</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section fade-in">
+        <h2>Key Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Migration from AliCloud to GCP</h3>
+                    <div class="project-duration">2021 – 2022</div>
+                </div>
+                <div class="project-content">
+                    <p>Led comprehensive cloud migration project, analyzing services and data stores, creating Target State Architecture (TSA), and executing smooth production cutover with zero downtime.</p>
+                    <ul>
+                        <li>Migrated multiple database types: Redis, MySQL, Cassandra, MongoDB, Elasticsearch</li>
+                        <li>Created detailed data migration and cutover plans</li>
+                        <li>Handled production environment transitions efficiently</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span class="tech-tag">GCP</span>
+                        <span class="tech-tag">Alibaba Cloud</span>
+                        <span class="tech-tag">Terraform</span>
+                        <span class="tech-tag">Terragrunt</span>
+                        <span class="tech-tag">Jenkins</span>
+                        <span class="tech-tag">Ansible</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Comprehensive Monitoring Architecture</h3>
+                    <div class="project-duration">2018 – 2021</div>
+                </div>
+                <div class="project-content">
+                    <p>Configured and automated monitoring architecture for Dev, Staging, and Production environments with containerized tools and service discovery integration.</p>
+                    <ul>
+                        <li>Containerized monitoring tools using Docker</li>
+                        <li>Integrated Consul with Prometheus for service discovery</li>
+                        <li>Automated deployment using Ansible playbooks</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span class="tech-tag">Grafana</span>
+                        <span class="tech-tag">Prometheus</span>
+                        <span class="tech-tag">AlertManager</span>
+                        <span class="tech-tag">Consul</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Ansible</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>SSH Keys Deployment Automation</h3>
+                    <div class="project-duration">2018 – 2021</div>
+                </div>
+                <div class="project-content">
+                    <p>Developed Ansible playbooks for automated SSH key deployment across multiple environments, ensuring secure and consistent access management.</p>
+                    <ul>
+                        <li>Automated key deployment for Dev, Staging, and Production</li>
+                        <li>Cross-platform support for CentOS and Ubuntu</li>
+                        <li>Enhanced security and access management</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span class="tech-tag">Ansible</span>
+                        <span class="tech-tag">CentOS</span>
+                        <span class="tech-tag">Ubuntu</span>
+                        <span class="tech-tag">SSH</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Hadoop Big Data Platform</h3>
+                    <div class="project-duration">2017 – 2018</div>
+                </div>
+                <div class="project-content">
+                    <p>Built a Python web application for configuring Hadoop clusters with MapReduce capabilities, enabling efficient big data processing workflows.</p>
+                    <ul>
+                        <li>Automated Hadoop cluster configuration</li>
+                        <li>Integrated MapReduce job management</li>
+                        <li>Web-based administration interface</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span class="tech-tag">Hadoop</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">MapReduce</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Apache</span>
+                        <span class="tech-tag">Nginx</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="section fade-in">
+        <h2>Latest Blog Posts</h2>
+        <div class="blog-grid">
+            <div class="blog-card">
+                <div class="blog-date">Coming Soon</div>
+                <h3 class="blog-title">Cloud Migration Best Practices: AliCloud to GCP</h3>
+                <p>Lessons learned from migrating large-scale applications and databases across different cloud platforms.</p>
+            </div>
+            <div class="blog-card">
+                <div class="blog-date">Coming Soon</div>
+                <h3 class="blog-title">Monitoring at Scale with Prometheus and Grafana</h3>
+                <p>Setting up comprehensive monitoring solutions for containerized applications and microservices.</p>
+            </div>
+            <div class="blog-card">
+                <div class="blog-date">Coming Soon</div>
+                <h3 class="blog-title">Infrastructure Automation with Ansible and Terraform</h3>
+                <p>Building robust, scalable infrastructure using Infrastructure as Code principles and automation tools.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section fade-in">
+        <h2>Get In Touch</h2>
+        <div class="contact-content">
+            <p>I'm always interested in discussing new opportunities, collaborating on interesting projects, or sharing knowledge about DevOps and cloud technologies. Feel free to reach out!</p>
+            <div class="contact-links">
+                <a href="mailto:bhagwanipankaj13@gmail.com" class="contact-link">
+                    <i class="fas fa-envelope"></i>
+                    Email
+                </a>
+                <a href="https://linkedin.com/in/pankaj-bhagwani" class="contact-link" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/pankajred" class="contact-link" target="_blank">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Pankaj Bhagwani. Built with passion for DevOps and cloud technologies.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Add smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add active navigation highlighting
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Dynamic particle generation
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.width = (Math.random() * 4 + 2) + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDelay = Math.random() * 8 + 's';
+            document.querySelector('.particles').appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 8000);
+        }
+
+        // Generate particles periodically
+        setInterval(createParticle, 2000);
+    </script>
+</body>
+</html>
